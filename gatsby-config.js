@@ -1,3 +1,6 @@
+const resolveConfig = require("tailwindcss/resolveConfig")
+const tailwindConfig = require("./tailwind.config.js")
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -27,6 +30,19 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-plugin-postcss`,
+      options: {
+        postCssPlugins: [
+          require(`tailwindcss`)(tailwindConfig),
+          require(`autoprefixer`),
+          ...(process.env.NODE_ENV === `production`
+            ? [require(`cssnano`)]
+            : []),
+        ],
+      },
+    },
+    `gatsby-plugin-styled-components`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
