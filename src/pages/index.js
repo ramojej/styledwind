@@ -1,15 +1,19 @@
 import React from "react"
 import { Link } from "gatsby"
-
+import tw, { styled } from "twin.macro"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
+
+const P = styled.p`
+  ${tw`text-2xl`}
+`
 
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <h1 className="text-4xl">Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
+    <P>Welcome to your new Gatsby site.</P>
     <p>Now go build something great.</p>
     <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
       <Image />
