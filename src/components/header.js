@@ -2,17 +2,22 @@ import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React, { useContext } from "react"
 import { ThemeContext } from "../context/ThemeContext"
+import tw, { styled } from "twin.macro"
+
+const StyledHeader = styled.header`
+  ${tw`mb-16`};
+  background: rebeccapurple;
+`
+
+const ToggleButton = styled.button`
+  ${tw`active:outline-none overflow-hidden focus:outline-none`}
+`
 
 const Header = ({ siteTitle }) => {
-  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext)
+  const { toggleDarkMode } = useContext(ThemeContext)
 
   return (
-    <header
-      style={{
-        background: `rebeccapurple`,
-        marginBottom: `1.45rem`,
-      }}
-    >
+    <StyledHeader>
       <div
         style={{
           margin: `0 auto`,
@@ -31,11 +36,11 @@ const Header = ({ siteTitle }) => {
             {siteTitle}
           </Link>
         </h1>
-        <button type="button" onClick={toggleDarkMode}>
+        <ToggleButton type="button" onClick={toggleDarkMode}>
           Toggle
-        </button>
+        </ToggleButton>
       </div>
-    </header>
+    </StyledHeader>
   )
 }
 
