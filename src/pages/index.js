@@ -7,7 +7,6 @@ import SEO from "../components/seo"
 
 const P = styled.p`
   ${tw`text-2xl`}
-  ${props => console.log(props)}
 `
 
 const IndexPage = () => {
