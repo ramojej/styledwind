@@ -4,16 +4,14 @@ import tw, { styled } from "twin.macro"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
-import { MenuToggle } from "../components/MenuToggle"
-import { motion, useCycle } from "framer-motion"
-import { MobileMenuOverlay } from "../styles"
+import { motion } from "framer-motion"
 
 const P = styled.p`
   ${tw`text-2xl`}
 `
 
 const IndexPage = () => {
-  const [isOpen, toggleOpen] = useCycle(false, true)
+  const [isOpen, toggleOpen] = useState(false)
 
   return (
     <Layout>
@@ -26,35 +24,13 @@ const IndexPage = () => {
       </div>
       <Link to="/page-2/">Go to page 2</Link> <br />
       <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-      {/* <button onClick={() => setOpen(!isOpen)}>Scale</button>
+      <button onClick={() => toggleOpen(!isOpen)}>Clicky</button>
       <motion.div
-        animate={{ scale: isOpen ? 1 : 0 }}
-        initial={{ scale: 0 }}
-        //transition={{ duration: 0.8, ease: [0.6, 0.05, -0.01, 0.9] }}
-        style={{ height: "300px", background: "red" }}
-      ></motion.div> */}
-      <motion.nav initial={false} animate={isOpen ? "open" : "closed"}>
-        <MenuToggle toggle={() => toggleOpen()} style={{ fillColor: "red" }} />
-      </motion.nav>
-      <div style={{ position: "relative", height: "500px" }}>
-        <motion.div
-          animate={{ scale: isOpen ? 1 : 0 }}
-          initial={{ scale: 0 }}
-          //transition={{ duration: 0.8, ease: [0.6, 0.05, -0.01, 0.9] }}
-          style={{
-            height: "100%",
-            width: "100%",
-            background: "red",
-            position: "absolute",
-          }}
-        ></motion.div>
-      </div>
-      <MobileMenuOverlay
-        animate={{ scale: isOpen ? 1 : 0 }}
-        initial={{ scale: 0 }}
+        animate={{ transform: isOpen ? "translateY(-100px)" : "translateY(0)" }}
+        initial={{ transform: "translateY(0)" }}
       >
-        <p>aw</p>
-      </MobileMenuOverlay>
+        <p>please</p>
+      </motion.div>
     </Layout>
   )
 }

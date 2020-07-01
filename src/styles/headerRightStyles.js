@@ -4,6 +4,10 @@ export const HeaderRight = styled.div`
   ${tw`flex items-center`};
 
   & > div {
-    ${tw`mr-4`}
+    ${tw`order-1 ml-4`}
+
+    @media ${props => props.theme.screens.lg} {
+      ${tw`order-none mr-4 ml-0`}
+    }
   }
 `

@@ -1,7 +1,7 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React, { useContext } from "react"
-import { MenuToggle } from "./MenuToggle"
+import { MenuToggle, MenuToggleContainer } from "./MenuToggle"
 import { ThemeContext } from "../context/ThemeContext"
 import { BsSun, BsMoon } from "react-icons/bs"
 import Menus from "../constants/routes"
@@ -13,13 +13,15 @@ import {
   Menu,
   HeaderRight,
 } from "../styles"
-import { motion, useCycle } from "framer-motion"
+import { useCycle, AnimatePresence } from "framer-motion"
 import { MobileMenuOverlay } from "../styles"
 
 const Header = ({ siteTitle }) => {
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext)
 
   const [isOpen, toggleOpen] = useCycle(false, true)
+
+  console.log(isDarkMode)
 
   return (
     <>
@@ -46,35 +48,38 @@ const Header = ({ siteTitle }) => {
                 )
               })}
             </Menu>
-            <motion.nav initial={false} animate={isOpen ? "open" : "closed"}>
+            <MenuToggleContainer
+              initial={false}
+              animate={isOpen ? "open" : "closed"}
+            >
               <MenuToggle
                 toggle={() => toggleOpen()}
                 style={{ fillColor: "red" }}
               />
-            </motion.nav>
+            </MenuToggleContainer>
+            {/* animate the icons up and down */}
             <ToggleContainer type="button" onClick={toggleDarkMode}>
-              <SVGContainer
-                isDarkMode={isDarkMode}
-                initial={{ opacity: 0 }}
-                animate={{
-                  transform: isDarkMode ? "translateY(0)" : "translateY(100px)",
-                  opacity: 1,
-                }}
-              >
-                <BsSun />
-              </SVGContainer>
-              <SVGContainer
-                isDarkMode={isDarkMode}
-                initial={{ opacity: 0 }}
-                animate={{
-                  transform: isDarkMode
-                    ? "translateY(-100px)"
-                    : "translateY(0)",
-                  opacity: 1,
-                }}
-              >
-                <BsMoon />
-              </SVGContainer>
+              <AnimatePresence>
+                {isDarkMode ? (
+                  <SVGContainer
+                    initial={{ y: 100 }}
+                    animate={{ y: 0 }}
+                    exit={{ y: 100, opacity: 0 }}
+                    key="1"
+                  >
+                    <BsSun />
+                  </SVGContainer>
+                ) : (
+                  <SVGContainer
+                    initial={{ y: -100 }}
+                    animate={{ y: 0 }}
+                    exit={{ y: -100, opacity: 0 }}
+                    key="2"
+                  >
+                    <BsMoon />
+                  </SVGContainer>
+                )}
+              </AnimatePresence>
             </ToggleContainer>
           </HeaderRight>
         </StyledHeader>

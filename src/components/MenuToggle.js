@@ -1,5 +1,6 @@
 import React from "react"
 import { motion } from "framer-motion"
+import tw, { styled } from "twin.macro"
 
 const Path = props => (
   <motion.path
@@ -10,6 +11,18 @@ const Path = props => (
     {...props}
   />
 )
+
+export const MenuToggleContainer = styled(motion.div)`
+  ${tw`relative z-20 flex items-center`}
+
+  @media ${props => props.theme.screens.lg} {
+    ${tw`hidden`}
+  }
+
+  button {
+    ${tw`focus:outline-none`}
+  }
+`
 
 export const MenuToggle = ({ toggle }) => (
   <button onClick={toggle}>
