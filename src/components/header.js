@@ -1,7 +1,7 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import React, { useContext } from "react"
-import { MenuToggle, MenuToggleContainer } from "./MenuToggle"
+import React, { useContext, useEffect } from "react"
+import { MenuToggle, MenuToggleContainer } from "./MobileMenu/MenuToggle"
 import { ThemeContext } from "../context/ThemeContext"
 import { BsSun, BsMoon } from "react-icons/bs"
 import Menus from "../constants/routes"
@@ -20,6 +20,10 @@ const Header = ({ siteTitle }) => {
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext)
 
   const [isOpen, toggleOpen] = useCycle(false, true)
+
+  useEffect(() => {
+    console.log("mount")
+  }, [])
 
   console.log(isDarkMode)
 
@@ -62,18 +66,20 @@ const Header = ({ siteTitle }) => {
               <AnimatePresence>
                 {isDarkMode ? (
                   <SVGContainer
-                    initial={{ y: 100 }}
-                    animate={{ y: 0 }}
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 100, opacity: 0 }}
+                    transition={{ duration: 1.2 }}
                     key="1"
                   >
                     <BsSun />
                   </SVGContainer>
                 ) : (
                   <SVGContainer
-                    initial={{ y: -100 }}
-                    animate={{ y: 0 }}
+                    initial={{ y: -100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -100, opacity: 0 }}
+                    transition={{ duration: 1.2 }}
                     key="2"
                   >
                     <BsMoon />
@@ -85,7 +91,9 @@ const Header = ({ siteTitle }) => {
         </StyledHeader>
       </Container>
       <MobileMenuOverlay
-        animate={{ scale: isOpen ? 1 : 0 }}
+        animate={{
+          scale: isOpen ? 1 : 0,
+        }}
         initial={{ scale: 0 }}
       >
         <p>aw</p>
